@@ -148,15 +148,15 @@ bool ForwarderProphet::newRoutingInformation(const Metadata *m)
 	
 	}
 	
-	bubble_rib_t::iterator jt = rib.begin();
+	//bubble_rib_t::iterator jt = rib.begin();
 	
-	while (jt != rib.end()) {
+	//while (jt != rib.end()) {
 
-		//bool isNeighbor = getKernel()->getNodeStore()->stored(id_number_to_nodeid[jt->first], true);
+		////bool isNeighbor = getKernel()->getNodeStore()->stored(id_number_to_nodeid[jt->first], true);
 		
-		HAGGLE_DBG(" PrintRouting node_id_num:%ld label:%s rank:%ld \n", jt->first, jt->second.first.c_str() , jt->second.second);
-		jt++;
-	}
+		//HAGGLE_DBG(" PrintRouting node_id_num:%ld label:%s rank:%ld \n", jt->first, jt->second.first.c_str() , jt->second.second);
+		//jt++;
+	//}
 		
 	rib_timestamp = Timeval::now();
 	
@@ -212,7 +212,7 @@ void ForwarderProphet::_generateDelegatesFor(const DataObjectRef &dObj, const No
 	LABEL_T targetLabel = rib[target_id].first;
 	//RANK_T targetRank = rib[target_id].second;
 	
-	HAGGLE_DBG("_generateDelegatesFor called target_node %d label %s\n", target_id, targetLabel.c_str());
+	//HAGGLE_DBG("_generateDelegatesFor called target_node %d label %s\n", target_id, targetLabel.c_str());
 
 	for (bubble_rib_t::iterator it = rib.begin();it != rib.end(); it++)
 	{
@@ -226,9 +226,10 @@ void ForwarderProphet::_generateDelegatesFor(const DataObjectRef &dObj, const No
 				//RANK_T &neighborRank = it->second.second;
 				
 				
-				HAGGLE_DBG("_generateDelegatesFor neighborLabel=%s, targetLabel=%s\n", neighborLabel.c_str(), targetLabel.c_str());
+				//HAGGLE_DBG("_generateDelegatesFor neighborLabel=%s, targetLabel=%s\n", neighborLabel.c_str(), targetLabel.c_str());
 				
-				if (targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
+				if (targetLabel.empty()!=0 && neighborLabel.empty()!=0 && 
+				targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
 				{
 					//NodeRef delegate = Node::create_with_id(Node::TYPE_PEER, id_number_to_nodeid[it->first].c_str(), "Label delegate node");
 					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);

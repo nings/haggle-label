@@ -150,6 +150,7 @@ bool ForwarderProphet::newRoutingInformation(const Metadata *m)
 	
 	//bubble_rib_t::iterator jt = rib.begin();
 	
+	
 	//while (jt != rib.end()) {
 
 		////bool isNeighbor = getKernel()->getNodeStore()->stored(id_number_to_nodeid[jt->first], true);
@@ -212,7 +213,7 @@ void ForwarderProphet::_generateDelegatesFor(const DataObjectRef &dObj, const No
 	LABEL_T targetLabel = rib[target_id].first;
 	//RANK_T targetRank = rib[target_id].second;
 	
-	//HAGGLE_DBG("_generateDelegatesFor called target_node %d label %s\n", target_id, targetLabel.c_str());
+	//HAGGLE_DBG("xxxxx called target_node %s, id %d, label %s\n",target->getName().c_str(), target_id, targetLabel.c_str());
 
 	for (bubble_rib_t::iterator it = rib.begin();it != rib.end(); it++)
 	{
@@ -226,14 +227,14 @@ void ForwarderProphet::_generateDelegatesFor(const DataObjectRef &dObj, const No
 				//RANK_T &neighborRank = it->second.second;
 				
 				
-				//HAGGLE_DBG("_generateDelegatesFor neighborLabel=%s, targetLabel=%s\n", neighborLabel.c_str(), targetLabel.c_str());
+				HAGGLE_DBG("xxxx target_node: %s, id: %d, neighborLabel=%s, targetLabel=%s\n", target->getName().c_str(), target_id, neighborLabel.c_str(), targetLabel.c_str());
 				
-				if (targetLabel.empty()!=0 && neighborLabel.empty()!=0 && 
+				if (!targetLabel.empty() && !neighborLabel.empty() && 
 				targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
 				{
 					//NodeRef delegate = Node::create_with_id(Node::TYPE_PEER, id_number_to_nodeid[it->first].c_str(), "Label delegate node");
 					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
-					HAGGLE_DBG(" _generateDelegatesFor Labelthesame: Node '%s' is a good delegate for target '%s' [neighborLabel=%s, targetLabel=%s]\n", 
+					HAGGLE_DBG(" _generateDelegatesFor Labelthesame: %s is a good delegate for target %s [neighborLabel=%s, targetLabel=%s]\n", 
 					delegate->getName().c_str(), target->getName().c_str(), neighborLabel.c_str(), targetLabel.c_str());
 					
 				}

@@ -1,0 +1,2 @@
+make
+sudo cp bin/haggle /usr/local/haggle/bin/

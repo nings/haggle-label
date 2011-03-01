@@ -236,20 +236,21 @@ void ForwarderProphet::_generateDelegatesFor(const DataObjectRef &dObj, const No
 				if ( neighborRank!=0 &&  neighborRank > myRank)
 				{
 					//NodeRef delegate = Node::create_with_id(Node::TYPE_PEER, id_number_to_nodeid[it->first].c_str(), "Label delegate node");
-					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
-					HAGGLE_DBG("Rankthesame: %s is a good delegate for target %s [neighborRank=%d, myRank=%d]\n", 
-					delegate->getName().c_str(), target->getName().c_str(), neighborRank, myRank);
+//					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
+//					HAGGLE_DBG("Rankthesame: %s is a good delegate for target %s [neighborRank=%d, myRank=%d]\n", 
+//					delegate->getName().c_str(), target->getName().c_str(), neighborRank, myRank);
 					
-				}
-				#else
-				if (!targetLabel.empty() && !neighborLabel.empty() && 
-				targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
-				{
+//				}
+//				#else
+					if (!targetLabel.empty() && !neighborLabel.empty() && 
+					targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
+					{
 					//NodeRef delegate = Node::create_with_id(Node::TYPE_PEER, id_number_to_nodeid[it->first].c_str(), "Label delegate node");
 					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
 					HAGGLE_DBG("Labelthesame: %s is a good delegate for target %s [neighborLabel=%s, targetLabel=%s]\n", 
 					delegate->getName().c_str(), target->getName().c_str(), neighborLabel.c_str(), targetLabel.c_str());
 					
+					}
 				}
 				#endif
 			}

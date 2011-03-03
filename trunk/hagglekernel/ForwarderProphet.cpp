@@ -4,7 +4,10 @@
 
 #include <math.h>
 
-#define BUBBULE_RANK
+//#define BUBBULE_RANK
+#define BUBBULE_LABEL
+//#define BUBBULE_BUBBULE
+				
 
 ForwarderProphet::ForwarderProphet(ForwardingManager *m, const EventType type) :
 	ForwarderAsynchronous(m, type, PROPHET_NAME),
@@ -235,21 +238,32 @@ void ForwarderProphet::_generateDelegatesFor(const DataObjectRef &dObj, const No
 				#ifdef BUBBULE_RANK
 				if ( neighborRank!=0 &&  neighborRank > myRank)
 				{
-					//NodeRef delegate = Node::create_with_id(Node::TYPE_PEER, id_number_to_nodeid[it->first].c_str(), "Label delegate node");
-//					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
-//					HAGGLE_DBG("Rankthesame: %s is a good delegate for target %s [neighborRank=%d, myRank=%d]\n", 
-//					delegate->getName().c_str(), target->getName().c_str(), neighborRank, myRank);
+					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
+					HAGGLE_DBG("Rankthesame: %s is a good delegate for target %s [neighborRank=%d, myRank=%d]\n", 
+					delegate->getName().c_str(), target->getName().c_str(), neighborRank, myRank);
 					
-//				}
-//				#else
-					if (!targetLabel.empty() && !neighborLabel.empty() && 
-					targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
-					{
-					//NodeRef delegate = Node::create_with_id(Node::TYPE_PEER, id_number_to_nodeid[it->first].c_str(), "Label delegate node");
+				}
+				#endif
+				
+				#ifdef BUBBULE_LABEL
+				if (!targetLabel.empty() && !neighborLabel.empty() && 
+				targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
+				{
 					sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
 					HAGGLE_DBG("Labelthesame: %s is a good delegate for target %s [neighborLabel=%s, targetLabel=%s]\n", 
 					delegate->getName().c_str(), target->getName().c_str(), neighborLabel.c_str(), targetLabel.c_str());
 					
+				}
+				#endif
+				
+				#ifdef BUBBULE_BUBBULE
+				if (!targetLabel.empty() && !neighborLabel.empty() && 
+				targetLabel.compare(LABEL_NAME)!=0 && neighborLabel.compare(targetLabel)==0)
+				{	
+					if ( neighborRank!=0 &&  neighborRank > myRank){
+						sortedNodeListInsert(sorted_delegate_list, delegate, it->second);
+						HAGGLE_DBG("Bubblethesame: %s is a good delegate for target %s [neighborLabel=%s, targetLabel=%s]\n", 
+						delegate->getName().c_str(), target->getName().c_str(), neighborLabel.c_str(), targetLabel.c_str());
 					}
 				}
 				#endif
